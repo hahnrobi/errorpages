@@ -133,8 +133,9 @@
       </div>
       <footer>&copy hahnrobi</footer>
       <script type="text/javascript">
+        const useAutoRefresh = false; //To turn off automatic refresh. It can be useful for errors where it doesn't make sense to reload the page.
         const refreshButton = document.getElementById("refreshButton");
-        let autoRefreshTimeout = 5;
+        let autoRefreshTimeout = 5; //Enter timeout in seconds. After the countdown finished the page will be reloaded. 
         let refreshButtonLabel = "Refresh";
 
         const multilang = true; //This is completely up to you. Turn on if automatically use language from the object. If false, nothing will happen.
@@ -153,7 +154,7 @@
         }
 
         const url = new URL(document.location.href);
-        if(!url.searchParams.has("errorpage_try")) {
+        if(useAutoRefresh && !url.searchParams.has("errorpage_try")) {
             const autoRefreshTimer = setInterval(() => {
                 if(autoRefreshTimeout === 0) {
                     url.searchParams.append("errorpage_try", 1);
