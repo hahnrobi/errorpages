@@ -1,2 +1,2 @@
 # errorpages
-Sample error pages for web servers.
+Simple error pages for web servers.
