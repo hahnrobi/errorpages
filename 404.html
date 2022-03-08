@@ -9,27 +9,144 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+        --body-bg: #FFF;
+        --text-color: #000;
+        }
+
         html, body {
             height: 100%;
         }
         body {
+            background: var(--body-bg);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             font-family: "Roboto", sans-serif;
         }
         .container {
-            display: grid;
+            display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 50px);
         }
+        footer {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+        header {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+        .left {
+            width: 50%;
+            display: block;
+        }
+        .right {
+            padding: 0 2rem;
+        }
+        .right p {
+            opacity: .7;
+        }
+        h1 {
+            color: #dc3545;
+            font-family: "Roboto Slab", sans-serif;
+            font-size: clamp(2rem, 20vw, 7rem);
+            margin: 0;
+        }
+        h2 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        button {
+            background: #dc3545;
+            border: 0;
+            border-radius: 3px;
+            padding: .5rem 1rem;
+            color: white;
+            font-family: "Roboto", sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: .2s all;
+        }
+        button:hover {
+            background: #e54756;
+        }
+        a {
+            color: #dc3545;
+        }
+        .explanation {
+            text-align: center;
+            opacity: .7;
+        }
+        @media screen and (max-width: 992px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+            .left {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+            --body-bg: #000;
+            --text-color: #FFF;
+            }
+            .left-animation {
+                filter: invert(100%) hue-rotate(180deg);
+            }
+        }
+
     </style>
   </head>
   <body>
       <div class="container">
           <div class="box">
+            <header>
+                <div class="left">
+                    <div class="left-animation" style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/9igGG6KxpY0eY0Sr5u" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p></p>
+                </div>
+                <div class="right">
+                    <h1>404</h1>
+                    <h2>Not found</h2>
+                    <p>The requested page cannot be found on our server.</p>
+                    <a href=""><button id="refreshButton">Refresh</button></a>
+                </div>
+            </header>
+              <div class="explanation">
+                <p>Sorry, but it looks like the requested page cannot be found. </p>
+                <p>The reason probaby a missing file or broken link. If you sure, that in this URL there should be something, contact us at the following address: <a>example@example.com</a></p>
+              </div>
+          </div>
 
       </div>
+      <footer>&copy hahnrobi</footer>
+      <script type="text/javascript">
+        const refreshButton = document.getElementById("refreshButton");
+        let autoRefreshTimeout = 5;
+        const refreshButtonLabel = "Refresh";
+        const url = new URL(document.location.href);
+        if(!url.searchParams.has("errorpage_try")) {
+            const autoRefreshTimer = setInterval(() => {
+                if(autoRefreshTimeout === 0) {
+                    url.searchParams.append("errorpage_try", 1);
+                    window.location.href = url.href;
+                    clearInterval(autoRefreshTimer);
+                }
+                refreshButton.innerText = refreshButtonLabel + " (" + autoRefreshTimeout-- + ")";
+            }, 1000);
+        }
+      </script>
   </body>
 </html>
