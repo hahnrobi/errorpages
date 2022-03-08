@@ -118,15 +118,15 @@
                     <div class="left-animation" style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/9igGG6KxpY0eY0Sr5u" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p></p>
                 </div>
                 <div class="right">
-                    <h1>404</h1>
-                    <h2>Not found</h2>
-                    <p>The requested page cannot be found on our server.</p>
-                    <a href=""><button id="refreshButton">Refresh</button></a>
+                    <h1 lang-label="404">404</h1>
+                    <h2 lang-label="not-found">Not found</h2>
+                    <p lang-label="not-found-longer">The requested resource cannot be found on our server.</p>
+                    <a href=""><button id="refreshButton" lang-label="refresh">Refresh</button></a>
                 </div>
             </header>
               <div class="explanation">
-                <p>Sorry, but it looks like the requested page cannot be found. </p>
-                <p>The reason probaby a missing file or broken link. If you sure, that in this URL there should be something, contact us at the following address: <a>example@example.com</a></p>
+                <p lang-label="explanation">Sorry, but it looks like the requested page cannot be found. </p>
+                <p lang-label="explanation-2">The reason probaby a missing file or broken link. If you sure, that in this URL there should be something, contact us at the following address:</p> <a>example@example.com</a>
               </div>
           </div>
 
@@ -135,7 +135,23 @@
       <script type="text/javascript">
         const refreshButton = document.getElementById("refreshButton");
         let autoRefreshTimeout = 5;
-        const refreshButtonLabel = "Refresh";
+        let refreshButtonLabel = "Refresh";
+
+        const multilang = true; //This is completely up to you. Turn on if automatically use language from the object. If false, nothing will happen.
+
+        const browser_lang = navigator.language;
+
+        const languages = {
+            "hu-HU": {
+                "doc:title": "404 - Az oldal nem található",
+                "not-found": "Az oldal nem található",
+                "not-found-longer": "A keresett erőforrás nem található a szerveren.",
+                "refresh": "Frissítés",
+                "explanation": "Sajnáljuk, de a keresett oldalt nem találjuk.",
+                "explanation-2": "Ennek oka valószínűleg egy hiányzó fájl vagy egy nem működő link. Ha biztos vagy benne, hogy ezen az oldal lennie kéne valaminek, vedd fel velünk a kapcsolatot az alábbi címen: "
+            }
+        }
+
         const url = new URL(document.location.href);
         if(!url.searchParams.has("errorpage_try")) {
             const autoRefreshTimer = setInterval(() => {
@@ -144,8 +160,23 @@
                     window.location.href = url.href;
                     clearInterval(autoRefreshTimer);
                 }
+                if(multilang && languages.hasOwnProperty(browser_lang) && languages[browser_lang].hasOwnProperty("refresh")) {
+                    refreshButtonLabel = languages[browser_lang].refresh;
+                }
                 refreshButton.innerText = refreshButtonLabel + " (" + autoRefreshTimeout-- + ")";
             }, 1000);
+        }
+
+        if(multilang && languages.hasOwnProperty(browser_lang)) {
+            if(languages[browser_lang].hasOwnProperty("doc:title")) {
+                document.title = languages[browser_lang]["doc:title"];
+            }
+            Object.keys(languages[browser_lang]).forEach(key => {
+                let toBeTranslated = document.querySelectorAll('[lang-label="'+key+'"]');
+                for(let i = 0; i < toBeTranslated.length; i++) {
+                    toBeTranslated[i].innerText = languages[browser_lang][key];
+                }
+            });
         }
       </script>
   </body>
