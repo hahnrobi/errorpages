@@ -1,6 +1,10 @@
 # errorpages
 Simple error pages for web servers.
 
+Inspired by: 
+- Adriaan - https://blog.adriaan.io/one-nginx-error-page-to-rule-them-all.html
+- denysvitali/nginx-error-pages - https://github.com/denysvitali/nginx-error-pages
+
 ## What is it for?
 If you want to have some customized error messages on your webserver, you can use this repo as a good starting point. It has all the configuration to get you up and running.
 
