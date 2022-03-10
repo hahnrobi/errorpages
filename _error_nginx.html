@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><!--# echo var="status_text" default="Something goes wrong" --></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+        --body-bg: #FFF;
+        --text-color: #000;
+        }
+
+        html, body {
+            height: 100%;
+        }
+        body {
+            background: var(--body-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            font-family: "Roboto", sans-serif;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: calc(100% - 50px);
+        }
+        footer {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+        header {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+        .left {
+            width: 50%;
+            display: flex;
+			justify-content: center;
+        }
+		.left svg {
+			max-height: 15rem;
+		}
+        .right {
+            padding: 0 2rem;
+        }
+        .right p {
+            opacity: .7;
+        }
+		h1, h2, .left svg {
+			color: #dc3545;
+			fill: #dc3545;
+		}
+        h1 {
+            font-size: clamp(2rem, 20vw, 7rem);
+            margin: 0;
+        }
+        h2 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        a {
+            color: #00E676;
+        }
+        .explanation {
+            text-align: center;
+            opacity: .7;
+        }
+        @media screen and (max-width: 992px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+            .left {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+            --body-bg: #000;
+            --text-color: #FFF;
+            }
+            .left-animation {
+                filter: invert(100%) hue-rotate(180deg);
+            }
+        }
+
+    </style>
+  </head>
+  <body>
+      <div class="container">
+          <div class="box">
+            <header>
+                <div class="left">
+                    
+<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Alert Circle</title><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z"/></svg>
+                </div>
+                <div class="right">
+                    <h1><!--# echo var="status" default="Ooops..." --> </h1>
+                    <h2><!--# echo var="status_text" default="Something goes wrong" --></h2>
+                </div>
+            </header>
+          </div>
+
+      </div>
+      <footer>&copy hahnrobi</footer>
+  </body>
+</html>
