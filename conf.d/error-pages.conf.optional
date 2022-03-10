@@ -1,0 +1,40 @@
+# Custom NGINX error pages configuration. Include this file to the server blocks
+# where you would like to override the default error pages.
+# https://github.com/hahnrobi
+
+# You can specify custom error pages, otherwise a generic one will be used which
+# will show the error code and message. You can  customize the _error.html page 
+# to make it react to different error codes.
+
+# Dedicated error pages. Add there your own with the error code.
+# Don't forget to delete it from the generic list some lines below.
+# Don't forget to also create a location block.
+# If you add a new file next to the existing ones,
+# just simply copy-paste and edit the route from the existing ones.
+error_page 403 /403.html;
+error_page 404 /404.html;
+
+# Generic error pages.
+# All the errors that are listed there will use the generic error page with the
+# error code and message.
+error_page 400 401 402 405 406 407 408 409 410 411 412 413 414 415 416 417 418 421 422 423 424 425 426 428 429 431 451 500 501 502 503 504 505 506 507 508 510 511 /_error.html;
+
+# 404 Custom error page
+location = /404.html {
+	internal; # Only accessbile from the server.
+	root /var/www/html/_error; # Where the file is stored
+}
+
+# 403 Custom error page
+location = /403.html {
+	internal; # Only acccessible from the server.
+	root /var/www/html/_error; # Where the file is stored
+}
+
+# Generic Error Pages with SSI
+location = /_error.html {
+	ssi on; # Server-side include to have error messages included the general error page.
+	internal; # Only accessible from the server.
+	auth_basic off; # No auth required
+	root var/www/html/_error; # Where the file is stored
+}
